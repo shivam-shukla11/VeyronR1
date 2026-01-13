@@ -1,59 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+﻿# VeyronR1 - Minimalist Login & Registration System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A clean, elegant Laravel application with user authentication system. Built for college submission.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- 🎨 Minimalist landing page with elegant design
+- 🔐 User login (supports email OR mobile number)
+- 📝 User registration with validation
+- ✨ Success popup notifications
+- 📱 Mobile-responsive design
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requirements
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP 8.2 or higher
+- Composer
+- MySQL database
+- XAMPP/WAMP/LAMP or any PHP development environment
 
-## Learning Laravel
+## Installation Steps
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Step 1: Download & Extract
+Download the ZIP file and extract it to your web server directory:
+- **XAMPP**: `C:\xampp\htdocs\veyronR1`
+- **WAMP**: `C:\wamp64\www\veyronR1`
+- **Linux**: `/var/www/html/veyronR1`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Step 2: Install Dependencies
+Open terminal/command prompt in the project folder and run:
+```bash
+composer install
+```
 
-## Laravel Sponsors
+### Step 3: Create Environment File
+Copy the example environment file:
+```bash
+cp .env.example .env
+```
+Or on Windows:
+```bash
+copy .env.example .env
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Step 4: Generate Application Key
+```bash
+php artisan key:generate
+```
 
-### Premium Partners
+### Step 5: Create Database
+Open phpMyAdmin (http://localhost/phpmyadmin) and create a new database:
+- Database name: `veyron_db` (or any name you prefer)
+- Collation: `utf8mb4_unicode_ci`
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Step 6: Configure Database
+Open the `.env` file and update database settings:
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=veyron_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
+> Note: Default XAMPP MySQL has no password. Adjust if yours is different.
 
-## Contributing
+### Step 7: Run Migrations
+This creates all necessary database tables:
+```bash
+php artisan migrate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Step 8: Start the Server
+```bash
+php artisan serve
+```
+Or with custom port:
+```bash
+php artisan serve --port=8080
+```
 
-## Code of Conduct
+### Step 9: Open in Browser
+Visit: http://localhost:8000 (or your custom port)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Database Tables Created
 
-## Security Vulnerabilities
+| Table | Purpose |
+|-------|---------|
+| users | Stores user accounts (first_name, last_name, email, mobile, password) |
+| cache | Laravel cache storage |
+| sessions | User session data |
+| jobs | Background job queue |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Login Credentials
+
+After registration, you can login using:
+- **Email** + Password
+- **Mobile Number** + Password
+
+## Project Structure
+
+```
+veyronR1/
+├── app/
+│   ├── Http/Controllers/AuthController.php  # Login & Register logic
+│   └── Models/User.php                       # User model
+├── resources/views/
+│   ├── home.blade.php                        # Landing page
+│   └── auth/
+│       ├── login.blade.php                   # Login page
+│       └── register.blade.php                # Registration page
+├── routes/web.php                            # Application routes
+└── database/migrations/                      # Database schema
+```
+
+## Troubleshooting
+
+### Error: SQLSTATE[HY000] [1049] Unknown database
+- Make sure you created the database in phpMyAdmin
+- Check DB_DATABASE name in .env matches your database
+
+### Error: Class not found
+- Run `composer install` again
+- Run `composer dump-autoload`
+
+### Blank page or 500 error
+- Check storage folder permissions
+- Run `php artisan config:clear`
+- Run `php artisan cache:clear`
+
+## Author
+
+**Shivam Shukla**  
+College Submission Project
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the MIT license.
