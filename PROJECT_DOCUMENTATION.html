@@ -1,0 +1,794 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VeyronR1 Project Documentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: #fff;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media print {
+            body { padding: 20px; }
+            .page-break { page-break-before: always; }
+            pre { white-space: pre-wrap; word-wrap: break-word; }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #111;
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #111;
+            padding-bottom: 20px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: #111;
+            margin: 40px 0 20px;
+            padding: 10px 0;
+            border-bottom: 2px solid #eee;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin: 25px 0 15px;
+        }
+
+        h4 {
+            font-size: 1rem;
+            color: #555;
+            margin: 20px 0 10px;
+        }
+
+        p { margin-bottom: 15px; }
+
+        pre {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 15px 0;
+        }
+
+        code {
+            background: #f1f3f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+        }
+
+        .file-path {
+            background: #e8f4fd;
+            color: #0366d6;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .flow-diagram {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .flow-box {
+            display: inline-block;
+            background: #fff;
+            border: 2px solid #333;
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .flow-arrow {
+            display: inline-block;
+            font-size: 1.5rem;
+            margin: 0 10px;
+            color: #666;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li { margin-bottom: 8px; }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 25px 35px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .toc h3 { margin-top: 0; }
+        
+        .toc ol { margin-left: 20px; }
+        
+        .toc li { margin-bottom: 5px; }
+
+        .author-box {
+            background: #111;
+            color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #111;
+            color: #fff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .print-btn:hover { background: #333; }
+
+        @media print {
+            .print-btn { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()">Save as PDF</button>
+
+    <h1>VEYRONR1</h1>
+    <p class="subtitle">Project Documentation & Technical Explanation<br>
+    <strong>Laravel Authentication System</strong></p>
+
+    <div class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li>Project Overview</li>
+            <li>Project Structure</li>
+            <li>How Laravel MVC Works</li>
+            <li>Database & Migrations</li>
+            <li>Routes Explained</li>
+            <li>Controllers (Business Logic)</li>
+            <li>Models (Data Layer)</li>
+            <li>Views (User Interface)</li>
+            <li>Page Interaction Flow</li>
+            <li>Security Features</li>
+        </ol>
+    </div>
+
+    <!-- SECTION 1 -->
+    <h2>1. Project Overview</h2>
+    <p>VeyronR1 is a minimalist Laravel web application featuring user authentication (login and registration). It demonstrates the MVC (Model-View-Controller) architecture pattern used in modern web development.</p>
+
+    <h3>Key Features:</h3>
+    <ul>
+        <li><strong>User Registration</strong> - Create account with first name, last name, email, mobile, password</li>
+        <li><strong>User Login</strong> - Login using email OR mobile number</li>
+        <li><strong>Form Validation</strong> - Server-side and client-side validation</li>
+        <li><strong>Password Security</strong> - Passwords are hashed using bcrypt</li>
+        <li><strong>Session Management</strong> - Laravel handles user sessions automatically</li>
+    </ul>
+
+    <h3>Technologies Used:</h3>
+    <table>
+        <tr><th>Technology</th><th>Purpose</th></tr>
+        <tr><td>Laravel 12</td><td>PHP Framework (Backend)</td></tr>
+        <tr><td>PHP 8.2</td><td>Server-side programming</td></tr>
+        <tr><td>MySQL</td><td>Database</td></tr>
+        <tr><td>Blade</td><td>Templating Engine (Views)</td></tr>
+        <tr><td>HTML/CSS/JS</td><td>Frontend Interface</td></tr>
+    </table>
+
+    <!-- SECTION 2 -->
+    <h2 class="page-break">2. Project Structure</h2>
+    <p>Laravel follows a specific folder structure. Here are the important files:</p>
+
+    <pre>
+veyronR1/
+├── app/
+│   ├── Http/
+│   │   └── Controllers/
+│   │       └── AuthController.php    ← Handles login & register logic
+│   └── Models/
+│       └── User.php                  ← User data model
+│
+├── database/
+│   └── migrations/                   ← Database table definitions
+│       └── create_users_table.php
+│
+├── resources/
+│   └── views/
+│       ├── home.blade.php            ← Landing page
+│       └── auth/
+│           ├── login.blade.php       ← Login form
+│           └── register.blade.php    ← Registration form
+│
+├── routes/
+│   └── web.php                       ← URL route definitions
+│
+├── .env                              ← Environment configuration
+└── public/
+    └── index.php                     ← Application entry point
+    </pre>
+
+    <!-- SECTION 3 -->
+    <h2>3. How Laravel MVC Works</h2>
+    
+    <div class="flow-diagram">
+        <div class="flow-box">User Request<br>(Browser)</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">Routes<br>(web.php)</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">Controller<br>(Logic)</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">Model<br>(Database)</div>
+        <br><br>
+        <div class="flow-box">View<br>(HTML Response)</div>
+        <span class="flow-arrow">←</span>
+        <div class="flow-box">Controller<br>(Prepares Data)</div>
+    </div>
+
+    <h3>MVC Explained:</h3>
+    <ul>
+        <li><strong>Model</strong> - Represents data and database interactions (User.php)</li>
+        <li><strong>View</strong> - HTML templates shown to users (.blade.php files)</li>
+        <li><strong>Controller</strong> - Business logic that connects Model and View (AuthController.php)</li>
+    </ul>
+
+    <div class="info-box">
+        <strong>How it works:</strong> When a user visits /login, Laravel checks routes/web.php to find which controller handles that URL. The controller then loads data from Models (if needed) and returns a View (HTML page).
+    </div>
+
+    <!-- SECTION 4 -->
+    <h2 class="page-break">4. Database & Migrations</h2>
+    <p>Migrations are PHP files that define database table structure. Laravel runs these to create tables automatically.</p>
+
+    <h3>Users Table Structure:</h3>
+    <table>
+        <tr><th>Column</th><th>Type</th><th>Purpose</th></tr>
+        <tr><td>id</td><td>BIGINT (Auto)</td><td>Primary key</td></tr>
+        <tr><td>first_name</td><td>VARCHAR(255)</td><td>User's first name</td></tr>
+        <tr><td>last_name</td><td>VARCHAR(255)</td><td>User's last name</td></tr>
+        <tr><td>email</td><td>VARCHAR(255)</td><td>Email address (unique)</td></tr>
+        <tr><td>mobile</td><td>VARCHAR(10)</td><td>Phone number (unique)</td></tr>
+        <tr><td>password</td><td>VARCHAR(255)</td><td>Hashed password</td></tr>
+        <tr><td>role</td><td>VARCHAR(255)</td><td>User role (user/admin)</td></tr>
+        <tr><td>created_at</td><td>TIMESTAMP</td><td>Account creation date</td></tr>
+    </table>
+
+    <h3>Migration Code:</h3>
+    <span class="file-path">database/migrations/create_users_table.php</span>
+    <pre>
+Schema::create('users', function (Blueprint $table) {
+    $table->id();                              // Auto-increment ID
+    $table->string('first_name');              // First name column
+    $table->string('last_name');               // Last name column
+    $table->string('email')->unique();         // Unique email
+    $table->string('mobile', 10)->unique();    // 10-digit mobile
+    $table->string('password');                // Hashed password
+    $table->string('role')->default('user');   // Default role
+    $table->timestamps();                      // created_at, updated_at
+});
+    </pre>
+
+    <div class="highlight-box">
+        <strong>Command to run migrations:</strong><br>
+        <code>php artisan migrate</code><br>
+        This reads all migration files and creates tables in the database.
+    </div>
+
+    <!-- SECTION 5 -->
+    <h2 class="page-break">5. Routes Explained</h2>
+    <p>Routes define which URL shows which page. They connect URLs to Controllers.</p>
+
+    <span class="file-path">routes/web.php</span>
+    <pre>
+&lt;?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+
+// Home page route
+Route::get('/', function () {
+    return view('home');        // Shows home.blade.php
+})->name('home');
+
+// Login routes
+Route::get('/login', [AuthController::class, 'showLoginForm'])
+    ->name('login');            // GET: Shows login form
+
+Route::post('/login', [AuthController::class, 'login']);
+                                // POST: Processes login
+
+// Registration routes  
+Route::get('/register', [AuthController::class, 'showRegisterForm'])
+    ->name('register');         // GET: Shows register form
+
+Route::post('/register', [AuthController::class, 'register']);
+                                // POST: Creates new user
+    </pre>
+
+    <h3>Route Types:</h3>
+    <table>
+        <tr><th>Method</th><th>URL</th><th>Controller Method</th><th>Purpose</th></tr>
+        <tr><td>GET</td><td>/</td><td>Closure (inline)</td><td>Show home page</td></tr>
+        <tr><td>GET</td><td>/login</td><td>showLoginForm()</td><td>Show login form</td></tr>
+        <tr><td>POST</td><td>/login</td><td>login()</td><td>Process login</td></tr>
+        <tr><td>GET</td><td>/register</td><td>showRegisterForm()</td><td>Show register form</td></tr>
+        <tr><td>POST</td><td>/register</td><td>register()</td><td>Create account</td></tr>
+    </table>
+
+    <div class="info-box">
+        <strong>GET vs POST:</strong><br>
+        - <strong>GET</strong>: Used to display pages (fetch data)<br>
+        - <strong>POST</strong>: Used to submit forms (send data)
+    </div>
+
+    <!-- SECTION 6 -->
+    <h2 class="page-break">6. Controllers (Business Logic)</h2>
+    <p>Controllers contain the logic that processes user requests. AuthController handles all authentication.</p>
+
+    <span class="file-path">app/Http/Controllers/AuthController.php</span>
+
+    <h3>6.1 Show Login Form</h3>
+    <pre>
+public function showLoginForm()
+{
+    return view('auth.login');  // Returns login.blade.php
+}
+    </pre>
+    <p><strong>Explanation:</strong> Simply returns the login view. <code>view('auth.login')</code> looks for the file at <code>resources/views/auth/login.blade.php</code></p>
+
+    <h3>6.2 Login Logic</h3>
+    <pre>
+public function login(Request $request)
+{
+    // Step 1: Validate input
+    $request->validate([
+        'identifier' => 'required',     // Email or mobile
+        'password' => 'required',
+        'role' => 'required|in:user,admin',
+    ]);
+
+    $identifier = $request->identifier;
+
+    // Step 2: Find user by email OR mobile
+    $user = User::where('role', 'user')
+        ->where(function ($query) use ($identifier) {
+            $query->where('email', $identifier)
+                  ->orWhere('mobile', $identifier);
+        })
+        ->first();
+
+    // Step 3: Verify password
+    if ($user && Hash::check($request->password, $user->password)) {
+        Auth::login($user);  // Create session
+        return redirect()->route('home')
+            ->with('success', 'Welcome back!');
+    }
+
+    // Step 4: Return error if invalid
+    return back()->withErrors([
+        'identifier' => 'Invalid email/mobile or password.'
+    ]);
+}
+    </pre>
+
+    <h4>Code Breakdown:</h4>
+    <ol>
+        <li><strong>Validation</strong>: Ensures identifier and password are provided</li>
+        <li><strong>Database Query</strong>: Searches users table where email OR mobile matches input</li>
+        <li><strong>Password Check</strong>: <code>Hash::check()</code> compares input with hashed password</li>
+        <li><strong>Session</strong>: <code>Auth::login()</code> creates a session cookie</li>
+        <li><strong>Redirect</strong>: Sends user to home page with success message</li>
+    </ol>
+
+    <h3 class="page-break">6.3 Registration Logic</h3>
+    <pre>
+public function register(Request $request)
+{
+    // Step 1: Validate all fields
+    $request->validate([
+        'first_name' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
+        'last_name' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
+        'mobile' => 'required|string|digits:10|unique:users,mobile',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|min:8|confirmed|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+    ], [
+        // Custom error messages
+        'first_name.regex' => 'First name should only contain letters.',
+        'mobile.digits' => 'Mobile number must be exactly 10 digits.',
+        'password.regex' => 'Password must contain uppercase, lowercase & number.',
+    ]);
+
+    // Step 2: Create user in database
+    $user = User::create([
+        'first_name' => $request->first_name,
+        'last_name' => $request->last_name,
+        'mobile' => $request->mobile,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),  // Hash password
+        'role' => 'user',
+    ]);
+
+    // Step 3: Auto-login the new user
+    Auth::login($user);
+
+    // Step 4: Redirect with success
+    return redirect()->route('home')
+        ->with('success', 'Account created successfully!');
+}
+    </pre>
+
+    <h4>Validation Rules Explained:</h4>
+    <table>
+        <tr><th>Rule</th><th>Meaning</th></tr>
+        <tr><td><code>required</code></td><td>Field cannot be empty</td></tr>
+        <tr><td><code>string</code></td><td>Must be text</td></tr>
+        <tr><td><code>max:255</code></td><td>Maximum 255 characters</td></tr>
+        <tr><td><code>regex:/^[a-zA-Z\s]+$/</code></td><td>Only letters and spaces allowed</td></tr>
+        <tr><td><code>digits:10</code></td><td>Exactly 10 digits</td></tr>
+        <tr><td><code>unique:users,mobile</code></td><td>No duplicate mobile in users table</td></tr>
+        <tr><td><code>email</code></td><td>Must be valid email format</td></tr>
+        <tr><td><code>min:8</code></td><td>Minimum 8 characters</td></tr>
+        <tr><td><code>confirmed</code></td><td>Must match password_confirmation field</td></tr>
+    </table>
+
+    <!-- SECTION 7 -->
+    <h2 class="page-break">7. Models (Data Layer)</h2>
+    <p>Models represent database tables and define what data can be saved.</p>
+
+    <span class="file-path">app/Models/User.php</span>
+    <pre>
+&lt;?php
+
+namespace App\Models;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class User extends Authenticatable
+{
+    use Notifiable;
+
+    // Fields that can be mass-assigned (saved to database)
+    protected $fillable = [
+        'first_name',
+        'last_name', 
+        'email',
+        'mobile',
+        'password',
+        'role',
+    ];
+
+    // Fields hidden from JSON output (security)
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    // Custom attribute: Get full name
+    public function getFullNameAttribute(): string
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+}
+    </pre>
+
+    <h4>Key Concepts:</h4>
+    <ul>
+        <li><strong>$fillable</strong>: Only these fields can be saved using <code>User::create()</code></li>
+        <li><strong>$hidden</strong>: Password is never exposed in API responses</li>
+        <li><strong>Accessor</strong>: <code>getFullNameAttribute()</code> lets you use <code>$user->full_name</code></li>
+    </ul>
+
+    <!-- SECTION 8 -->
+    <h2 class="page-break">8. Views (User Interface)</h2>
+    <p>Views are Blade templates that display HTML to users. Blade is Laravel's templating engine.</p>
+
+    <h3>8.1 Home Page</h3>
+    <span class="file-path">resources/views/home.blade.php</span>
+    <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;VEYRON - Fashion Store&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;div class="logo"&gt;VEYRON&lt;/div&gt;
+        &lt;nav&gt;
+            @auth
+                &lt;!-- Shown when logged in --&gt;
+                &lt;a href="{{ route('logout') }}"&gt;LOGOUT&lt;/a&gt;
+            @else
+                &lt;!-- Shown when not logged in --&gt;
+                &lt;a href="{{ route('login') }}"&gt;LOGIN&lt;/a&gt;
+            @endauth
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;h1&gt;VEYRON&lt;/h1&gt;
+        &lt;p&gt;Fashion that speaks, style that lasts.&lt;/p&gt;
+    &lt;/main&gt;
+
+    &lt;!-- Success Popup --&gt;
+    @if(session('success'))
+        &lt;div class="popup"&gt;
+            &lt;h2&gt;SUCCESS&lt;/h2&gt;
+            &lt;p&gt;{{ session('success') }}&lt;/p&gt;
+        &lt;/div&gt;
+    @endif
+&lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+
+    <h4>Blade Directives Explained:</h4>
+    <table>
+        <tr><th>Directive</th><th>Purpose</th></tr>
+        <tr><td><code>@auth / @endauth</code></td><td>Show content only if user is logged in</td></tr>
+        <tr><td><code>@else</code></td><td>Alternative content</td></tr>
+        <tr><td><code>@if / @endif</code></td><td>Conditional display</td></tr>
+        <tr><td><code>{{ route('login') }}</code></td><td>Generate URL for named route</td></tr>
+        <tr><td><code>{{ session('success') }}</code></td><td>Get flash message from session</td></tr>
+        <tr><td><code>{{ asset('images/logo.jpg') }}</code></td><td>Generate URL for public files</td></tr>
+    </table>
+
+    <h3 class="page-break">8.2 Login Form</h3>
+    <span class="file-path">resources/views/auth/login.blade.php</span>
+    <pre>
+&lt;form method="POST" action="{{ route('login') }}"&gt;
+    @csrf  &lt;!-- Security token --&gt;
+    
+    &lt;input type="text" name="identifier" 
+           placeholder="Email or Mobile Number"
+           value="{{ old('identifier') }}" required&gt;
+    
+    &lt;input type="password" name="password" 
+           placeholder="Password" required&gt;
+    
+    &lt;select name="role" required&gt;
+        &lt;option value="user"&gt;User&lt;/option&gt;
+        &lt;option value="admin"&gt;Admin&lt;/option&gt;
+    &lt;/select&gt;
+    
+    &lt;button type="submit"&gt;Login&lt;/button&gt;
+&lt;/form&gt;
+
+@if($errors->any())
+    &lt;div class="error"&gt;
+        {{ $errors->first() }}
+    &lt;/div&gt;
+@endif
+    </pre>
+
+    <h4>Important Elements:</h4>
+    <ul>
+        <li><strong>@csrf</strong>: Required security token to prevent CSRF attacks</li>
+        <li><strong>method="POST"</strong>: Form submits data to server</li>
+        <li><strong>action="{{ route('login') }}"</strong>: Form submits to /login URL</li>
+        <li><strong>{{ old('identifier') }}</strong>: Keeps entered value if validation fails</li>
+        <li><strong>$errors->first()</strong>: Shows first validation error message</li>
+    </ul>
+
+    <h3>8.3 Registration Form</h3>
+    <span class="file-path">resources/views/auth/register.blade.php</span>
+    <pre>
+&lt;form method="POST" action="{{ route('register') }}"&gt;
+    @csrf
+    
+    &lt;input type="text" name="first_name" 
+           placeholder="First Name" required&gt;
+    
+    &lt;input type="text" name="last_name" 
+           placeholder="Last Name" required&gt;
+    
+    &lt;input type="email" name="email" 
+           placeholder="Email Address" required&gt;
+    
+    &lt;input type="tel" name="mobile" 
+           placeholder="Mobile (10 digits)" 
+           maxlength="10" required&gt;
+    
+    &lt;input type="password" name="password" 
+           placeholder="Password" required&gt;
+    
+    &lt;input type="password" name="password_confirmation" 
+           placeholder="Confirm Password" required&gt;
+    
+    &lt;button type="submit"&gt;Create Account&lt;/button&gt;
+&lt;/form&gt;
+    </pre>
+
+    <div class="highlight-box">
+        <strong>Note:</strong> The field <code>password_confirmation</code> is automatically checked against <code>password</code> by Laravel's <code>confirmed</code> validation rule.
+    </div>
+
+    <!-- SECTION 9 -->
+    <h2 class="page-break">9. Page Interaction Flow</h2>
+
+    <h3>9.1 Registration Flow</h3>
+    <div class="flow-diagram">
+        <div class="flow-box">1. User visits<br>/register</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">2. Route calls<br>showRegisterForm()</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">3. Returns<br>register.blade.php</div>
+        <br><br>
+        <div class="flow-box">4. User fills form<br>& submits</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">5. POST /register<br>calls register()</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">6. Validates data</div>
+        <br><br>
+        <div class="flow-box">7. Creates user<br>in database</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">8. Auto-login<br>user</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">9. Redirect to<br>home with popup</div>
+    </div>
+
+    <h3>9.2 Login Flow</h3>
+    <div class="flow-diagram">
+        <div class="flow-box">1. User visits<br>/login</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">2. Shows<br>login.blade.php</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">3. User enters<br>credentials</div>
+        <br><br>
+        <div class="flow-box">4. POST /login</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">5. Find user by<br>email/mobile</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">6. Verify<br>password hash</div>
+        <br><br>
+        <div class="flow-box">7. Create<br>session</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">8. Redirect to<br>home page</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-box">9. Show success<br>popup</div>
+    </div>
+
+    <h3>9.3 Session & Authentication</h3>
+    <pre>
+// When user logs in:
+Auth::login($user);
+// Laravel creates a session cookie in browser
+
+// On any page, check if logged in:
+@auth
+    // User is logged in
+    // Access user: {{ Auth::user()->first_name }}
+@endauth
+
+// Logout:
+Auth::logout();
+session()->flush();  // Clear all session data
+    </pre>
+
+    <!-- SECTION 10 -->
+    <h2 class="page-break">10. Security Features</h2>
+
+    <h3>10.1 Password Hashing</h3>
+    <pre>
+// When saving password:
+'password' => Hash::make($request->password)
+
+// Input: "MyPass123"
+// Stored: "$2y$abcdefghij..."  (60+ characters)
+
+// When verifying:
+Hash::check($inputPassword, $storedHash)
+// Returns true if match, false otherwise
+    </pre>
+    <p><strong>Why?</strong> If database is hacked, real passwords aren't exposed.</p>
+
+    <h3>10.2 CSRF Protection</h3>
+    <pre>
+&lt;form method="POST"&gt;
+    @csrf  &lt;!-- Generates hidden token --&gt;
+    &lt;!-- Rendered as: --&gt;
+    &lt;input type="hidden" name="_token" value="random_token_here"&gt;
+&lt;/form&gt;
+    </pre>
+    <p><strong>Why?</strong> Prevents malicious websites from submitting forms on behalf of users.</p>
+
+    <h3>10.3 Validation</h3>
+    <ul>
+        <li><strong>Server-side</strong>: Laravel validates all input before processing</li>
+        <li><strong>Client-side</strong>: JavaScript validates before form submission</li>
+        <li><strong>Unique constraint</strong>: Prevents duplicate emails/mobiles</li>
+        <li><strong>Password rules</strong>: Enforces strong passwords</li>
+    </ul>
+
+    <h3>10.4 Mass Assignment Protection</h3>
+    <pre>
+// Only $fillable fields can be saved:
+protected $fillable = ['first_name', 'last_name', 'email', ...];
+
+// Prevents hackers from adding extra fields like:
+// ?is_admin=true (won't work)
+    </pre>
+
+    <div class="author-box">
+        <h2>VeyronR1 Project Documentation</h2>
+        <p>Created by: <strong>Shivam Shukla</strong></p>
+        <p>College Submission Project</p>
+        <p style="margin-top: 15px; font-size: 0.9rem;">
+            GitHub: <a href="https://github.com/shivam-shukla11/VeyronR1" style="color: #fff;">github.com/shivam-shukla11/VeyronR1</a>
+        </p>
+    </div>
+
+</body>
+</html>
